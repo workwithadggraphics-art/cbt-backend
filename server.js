@@ -241,12 +241,17 @@ app.post('/api/result', async (req, res) => {
     // Mark answers
     let correct = 0, wrong = 0, skipped = 0;
     exam.questions.forEach((q, i) => {
-      const given = (answers[i] || '').toUpperCase();
-      if (!given)                                  skipped++;
-      else if (given === q.answer.toUpperCase())   correct++;
-      else                                         wrong++;
-    });
-
+  const given = (answers[i] || '').trim();
+  if (!given) {
+    skipped++;
+  } else if (q.type === 'fill') {
+    if (given.toLowerCase() === q.answer.toLowerCase()) correct++;
+    else wrong++;
+  } else {
+    if (given.toUpperCase() === q.answer.toUpperCase()) correct++;
+    else wrong++;
+  }
+});
     const total = exam.questions.length;
     const pct   = total > 0 ? Math.round((correct / total) * 100) : 0;
 
