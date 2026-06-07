@@ -208,10 +208,11 @@ app.get('/api/exam/:id/:studentId', async (req, res) => {
         time:         exam.time,
         instructions: exam.instructions,
         questions:    exam.questions.map(q => ({
-          question: q.question,
-          a: q.a, b: q.b, c: q.c, d: q.d
-          // answer intentionally excluded
-        }))
+         question: q.question,
+         type:     q.type || 'mcq',
+         a: q.a, b: q.b, c: q.c, d: q.d
+         // answer intentionally excluded
+      }))
       }
     });
   } catch (e) {
