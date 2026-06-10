@@ -330,7 +330,7 @@ app.get('/api/admin/students', async (req, res) => {
 
 app.post('/api/admin/students', async (req, res) => {
   try {
-    const { surname, firstName, admNo, studentClass } = req.body;
+    const { surname, firstName, admNo, studentClass, photo } = req.body;
     if (!surname || !firstName || !admNo || !studentClass)
       return res.json({ ok: false, error: 'All student fields are required.' });
 
@@ -338,12 +338,13 @@ app.post('/api/admin/students', async (req, res) => {
     if (exists) return res.json({ ok: false, error: 'Admission number already exists.' });
 
     const doc = {
-      surname:   surname.trim(),
-      firstName: firstName.trim(),
-      admNo:     admNo.trim(),
-      class:     studentClass,
-      createdAt: new Date()
-    };
+  surname:   surname.trim(),
+  firstName: firstName.trim(),
+  admNo:     admNo.trim(),
+  class:     studentClass,
+  photo:     photo || null,
+  createdAt: new Date()
+};
 
     const result = await db.collection('students').insertOne(doc);
     await logActivity(`Student added: ${firstName} ${surname} (${studentClass})`);
