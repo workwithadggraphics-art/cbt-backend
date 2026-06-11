@@ -212,6 +212,7 @@ app.get('/api/exam/:id/:studentId', async (req, res) => {
   question: q.question,
   type:     q.type  || 'mcq',
   image:    q.image || null,
+  passage:  q.image || null,
   a: q.a, b: q.b, c: q.c, d: q.d
   // answer intentionally excluded
 }))
