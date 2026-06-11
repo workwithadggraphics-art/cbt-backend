@@ -121,12 +121,12 @@ app.post('/api/student/login', async (req, res) => {
     res.json({
       ok: true,
       student: {
-        id:        student._id.toString(),
-        surname:   student.surname,
-        firstName: student.firstName,
-        class:     student.class
-        photo:     student.photo  || null
-      },
+  id:        student._id.toString(),
+  surname:   student.surname,
+  firstName: student.firstName,
+  class:     student.class,
+  photo:     student.photo || null
+}
       takenExamIds
     });
   } catch (e) {
