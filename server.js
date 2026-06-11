@@ -119,16 +119,16 @@ app.post('/api/student/login', async (req, res) => {
     const takenExamIds = taken.map(r => r.examId);
 
     res.json({
-      ok: true,
-      student: {
-  id:        student._id.toString(),
-  surname:   student.surname,
-  firstName: student.firstName,
-  class:     student.class,
-  photo:     student.photo || null
-}
-    const  takenExamIds = db.results 
-    });
+  ok: true,
+  student: {
+    id:        student._id.toString(),
+    surname:   student.surname,
+    firstName: student.firstName,
+    class:     student.class,
+    photo:     student.photo || null
+  },
+  takenExamIds
+});
   } catch (e) {
     console.error(e);
     res.json({ ok: false, error: 'Server error during login.' });
