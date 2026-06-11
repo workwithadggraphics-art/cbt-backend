@@ -1,4 +1,4 @@
-/**
+ /**
  * ═══════════════════════════════════════════════════════
  *  CBT PORTAL — NODE.JS BACKEND + MONGODB ATLAS
  *  Cityside Secondary School, Sagamu, Ogun State
@@ -125,6 +125,7 @@ app.post('/api/student/login', async (req, res) => {
         surname:   student.surname,
         firstName: student.firstName,
         class:     student.class
+        photo:     student.photo  || null
       },
       takenExamIds
     });
