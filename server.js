@@ -127,7 +127,7 @@ app.post('/api/student/login', async (req, res) => {
   class:     student.class,
   photo:     student.photo || null
 }
-      takenExamIds
+    const  takenExamIds = db.results 
     });
   } catch (e) {
     console.error(e);
