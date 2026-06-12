@@ -166,16 +166,17 @@ app.get('/api/exams/:studentClass/:studentId', async (req, res) => {
     const takenIds = new Set(takenDocs.map(r => r.examId));
 
     const result = exams.map(e => ({
-      id:            e._id.toString(),
-      subject:       e.subject,
-      icon:          e.icon,
-      time:          e.time,
-      instructions:  e.instructions,
-      questionCount: e.questions.length,
-      taken:         takenIds.has(e._id.toString())
-    }));
+  id:            e._id.toString(),
+  subject:       e.subject,
+  icon:          e.icon,
+  time:          e.time,
+  instructions:  e.instructions,
+  questionCount: e.questions.length,
+  taken:         takenIds.has(e._id.toString()),
+  locked:        e.examStatus !== 'open'
+}));
 
-    res.json({ ok: true, exams: result });
+res.json({ ok: true, exams: result });
   } catch (e) {
     console.error(e);
     res.json({ ok: false, error: 'Could not load exams.' });
