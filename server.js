@@ -200,6 +200,9 @@ app.get('/api/exam/:id/:studentId', async (req, res) => {
 
     if (!exam)         return res.json({ ok: false, error: 'Exam not found.' });
     if (alreadyTaken)  return res.json({ ok: false, error: 'You have already taken this exam.' });
+if (!exam)                       return res.json({ ok: false, error: 'Exam not found.' });
+if (alreadyTaken)                return res.json({ ok: false, error: 'You have already taken this exam.' });
+if (exam.examStatus !== 'open')  return res.json({ ok: false, error: 'This exam is not yet available.' });
 
     res.json({
       ok: true,
