@@ -413,7 +413,21 @@ app.post('/api/admin/exams', async (req, res) => {
     res.json({ ok: false, error: 'Could not save exam.' });
   }
 });
+// Toggle exam open/closed
+app.post('/api/admin/exams/:id/status', async (req, res) => {
+  try {
+    const _id        = new ObjectId(req.params.id);
+    const { examStatus } = req.body;
+    if (!['open','closed'].includes(examStatus))
+      return res.json({ ok: false, error: 'Invalid status.' });
 
+    await db.collection('exams').updateOne({ _id }, { $set: { examStatus } });
+    await logActivity(`Exam ${examStatus === 'open' ? 'opened' : 'closed'}: ${req.params.id}`);
+    res.json({ ok: true });
+  } catch (e) {
+    res.json({ ok: false, error: 'Could not update exam status.' });
+  }
+});
 app.delete('/api/admin/exams/:id', async (req, res) => {
   try {
     const _id = new ObjectId(req.params.id);
